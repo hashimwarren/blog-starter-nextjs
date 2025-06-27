@@ -2,121 +2,185 @@
 
 This is a conversion project to take a static HTML template and convert it into a Next.js application using shadcn components. The project will involve setting up the Next.js environment, creating a layout, converting HTML pages to React components, and ensuring the design is consistent with the original template.
 
-The design reference screenshot is available at: screenshot.png
+**Design reference screenshot:** `screenshot.png`
 
-# Conversion Plan
+## Conversion Plan
 
-Layout and Shared Components
-Layout Component (src/app/layout.tsx)
+### Work using a todo list
 
-Wrap all pages with a consistent layout (header, footer, global styles).
+You MUST manage your progress using a Todo List.
 
-Import global Tailwind styles via globals.css.
+Follow these steps:
 
-Header/Navigation (components/Header.tsx)
+1. Start a new markdown code block with a checklist.
+2. Create a Todo List with specific, actionable items using standard Markdown checklist syntax.
+3. **After each step in the todo list is completed, you MUST re-render and update the todo list to reflect the current progress.**. Only re-render the todo list if a step has been **fully** and **successfully** completed.
 
-Convert <section id="header"> from HTML.
+Todo Lists must be displayed as a **Markdown code block** using standard checklist syntax:
 
-Use shadcn’s NavigationMenu components for dropdowns.
+- `[ ]` = Not started
+- `[x]` = Completed
+- `[-]` = Removed or no longer relevant
 
-Include site logo and links to Home, Left Sidebar, Right Sidebar, No Sidebar pages.
+### Example:
 
-Banner (components/Banner.tsx)
+```markdown
+[ ] Search for the `ChatInput` component
+[ ] Read the file if it's under 2000 lines
+[ ] Fix undefined variable error
+[ ] Verify Problems tab is clear
+```
 
-Represents <section id="banner"> with the heading “Howdy. This is Dopetrope.”
+### 1. Layout and Shared Components
 
-Include styled callouts or CTAs if present in the original.
+#### Layout Component (`src/app/layout.tsx`)
 
-Intro Section (components/Intro.tsx + components/FeatureCard.tsx)
+- Wrap all pages with a consistent layout (header, footer, global styles)
+- Import global Tailwind styles via `globals.css`
 
-Build feature cards for the three icons under <section id="intro"> (Ipsum consequat, Magna etiam dolor, Tempus adipiscing).
+#### Header/Navigation (`components/Header.tsx`)
 
-Each card uses shadcn Card and Badge components.
+- Convert `<section id="header">` from HTML
+- Use shadcn's NavigationMenu components for dropdowns
+- Include site logo and links to Home, Left Sidebar, Right Sidebar, No Sidebar pages
 
-Portfolio Grid (components/Portfolio.tsx + components/PortfolioItem.tsx)
+#### Banner (`components/Banner.tsx`)
 
-Convert the portfolio gallery from <section> inside #main.
+- Represents `<section id="banner">` with the heading "Howdy. This is Dopetrope."
+- Include styled callouts or CTAs if present in the original
 
-Use a responsive grid layout with Image components.
+#### Intro Section (`components/Intro.tsx` + `components/FeatureCard.tsx`)
 
-Blog Preview (components/BlogList.tsx + components/BlogPostCard.tsx)
+- Build feature cards for the three icons under `<section id="intro">`
+  - Ipsum consequat
+  - Magna etiam dolor
+  - Tempus adipiscing
+- Each card uses shadcn Card and Badge components
 
-Convert the “The Blog” section that lists blog posts with images and “Continue Reading” buttons.
+#### Portfolio Grid (`components/Portfolio.tsx` + `components/PortfolioItem.tsx`)
 
-Footer (components/Footer.tsx)
+- Convert the portfolio gallery from `<section>` inside `#main`
+- Use a responsive grid layout with Image components
 
-Recreate the large footer from <section id="footer">, including dates, social links, and contact information.
+#### Blog Preview (`components/BlogList.tsx` + `components/BlogPostCard.tsx`)
 
-Sidebar (components/Sidebar.tsx)
+- Convert the "The Blog" section that lists blog posts with images and "Continue Reading" buttons
 
-Used by left-sidebar and right-sidebar pages.
+#### Footer (`components/Footer.tsx`)
 
-Contains “Feugiat consequat” lists and image boxes.
+- Recreate the large footer from `<section id="footer">`
+- Include dates, social links, and contact information
 
-3. Pages
-   Home Page (src/app/page.tsx)
+#### Sidebar (`components/Sidebar.tsx`)
 
-Assemble Banner, Intro, Portfolio, BlogList, and Footer inside the main Layout.
+- Used by left-sidebar and right-sidebar pages
+- Contains "Feugiat consequat" lists and image boxes
 
-Left Sidebar Page (src/app/left-sidebar/page.tsx)
+### 2. Pages
 
-Layout with Sidebar component on the left and main article content on the right.
+#### Home Page (`src/app/page.tsx`)
 
-Right Sidebar Page (src/app/right-sidebar/page.tsx)
+- Assemble Banner, Intro, Portfolio, BlogList, and Footer inside the main Layout
 
-Similar to Left Sidebar but with the sidebar on the right.
+#### Left Sidebar Page (`src/app/left-sidebar/page.tsx`)
 
-No Sidebar Page (src/app/no-sidebar/page.tsx)
+- Layout with Sidebar component on the left and main article content on the right
 
-Full-width article content using Layout without the Sidebar component.
+#### Right Sidebar Page (`src/app/right-sidebar/page.tsx`)
 
-4. Styling
-   Use Tailwind CSS classes to match the original assets/css/main.css.
+- Similar to Left Sidebar but with the sidebar on the right
 
-Global styles and any custom fonts go in src/app/globals.css.
+#### No Sidebar Page (`src/app/no-sidebar/page.tsx`)
 
-5. Unit Testing (Jest)
-   Component Tests
+- Full-width article content using Layout without the Sidebar component
 
-Write Jest tests under src/**tests**/ for each component.
+### 3. Styling
 
-Example: Header.test.tsx verifies that navigation links render, Banner.test.tsx checks heading text, etc.
+- Use Tailwind CSS classes to match the original `assets/css/main.css`
+- Global styles and any custom fonts go in `src/app/globals.css`
 
-Render Checks
+### 4. Unit Testing (Jest)
 
-Use React Testing Library to ensure components mount and accept props correctly.
+#### Component Tests
 
-Snapshot Tests (optional)
+- Write Jest tests under `src/__tests__/` for each component
+- Examples:
+  - `Header.test.tsx` - verifies that navigation links render
+  - `Banner.test.tsx` - checks heading text
+  - etc.
 
-Capture React snapshots to guard against accidental markup changes.
+#### Render Checks
 
-6. Playwright End-to-End and Screenshot Tests
-   Basic Navigation Tests
+- Use React Testing Library to ensure components mount and accept props correctly
 
-Under tests/, add Playwright tests that load each page (home, left-sidebar, etc.) and verify key headings.
+#### Snapshot Tests (optional)
 
-Screenshot Comparison
+- Capture React snapshots to guard against accidental markup changes
 
-Store the design reference screenshot.png at the repository root (already present).
+### 5. Playwright End-to-End and Screenshot Tests
 
-In a Playwright test, navigate to the Home page, capture a screenshot, and compare with the stored reference:
+#### Basic Navigation Tests
 
-test('home page matches design', async ({ page }) => {
-await page.goto('/');
-expect(await page.screenshot()).toMatchSnapshot('screenshot.png');
+- Under `tests/`, add Playwright tests that load each page (home, left-sidebar, etc.) and verify key headings
+
+#### Screenshot Comparison
+
+- Store the design reference `screenshot.png` at the repository root (already present)
+- In a Playwright test, navigate to the Home page, capture a screenshot, and compare with the stored reference:
+
+```javascript
+test("home page matches design", async ({ page }) => {
+  await page.goto("/");
+  expect(await page.screenshot()).toMatchSnapshot("screenshot.png");
 });
-Repeat for other pages if necessary.
+```
 
-7. Build & Verification
-   Run npm run build periodically (see plan step 6) to ensure pages compile.
+- Repeat for other pages if necessary
 
-Confirm the rendered pages visually match the screenshot reference and the HTML template.
+### 6. Build & Verification
 
-8. Final Checklist
-   All components created and styled.
+- Run `npm run build` periodically to ensure pages compile
+- Confirm the rendered pages visually match the screenshot reference and the HTML template
 
-Jest tests passing (npm run test).
+### 7. Final Checklist
 
-Playwright screenshot tests passing (npx playwright test).
+- [ ] All components created and styled
+- [ ] Jest tests passing (`npm run test`)
+- [ ] Playwright screenshot tests passing (`npx playwright test`)
+- [ ] Design closely matches `screenshot.png`
 
-Design closely matches screenshot.png.
+## Project Structure
+
+```
+nextjs-dopetrop/
+├── src/
+│   ├── app/
+│   │   ├── layout.tsx
+│   │   ├── page.tsx
+│   │   ├── globals.css
+│   │   ├── left-sidebar/
+│   │   │   └── page.tsx
+│   │   ├── right-sidebar/
+│   │   │   └── page.tsx
+│   │   └── no-sidebar/
+│   │       └── page.tsx
+│   ├── components/
+│   │   ├── Header.tsx
+│   │   ├── Banner.tsx
+│   │   ├── Intro.tsx
+│   │   ├── FeatureCard.tsx
+│   │   ├── Portfolio.tsx
+│   │   ├── PortfolioItem.tsx
+│   │   ├── BlogList.tsx
+│   │   ├── BlogPostCard.tsx
+│   │   ├── Sidebar.tsx
+│   │   └── Footer.tsx
+│   └── __tests__/
+│       ├── Header.test.tsx
+│       ├── Banner.test.tsx
+│       └── ...
+├── tests/
+│   └── e2e/
+│       └── navigation.spec.ts
+└── screenshot.png
+```
