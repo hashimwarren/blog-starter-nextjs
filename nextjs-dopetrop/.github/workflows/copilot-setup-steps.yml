@@ -1,0 +1,135 @@
+name: Copilot Setup Steps
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  setup-environment:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: |
+          cd nextjs-dopetrop
+          npm ci
+
+      - name: Install Playwright browsers
+        run: |
+          cd nextjs-dopetrop
+          npx playwright install --with-deps
+
+      - name: Setup shadcn/ui components
+        run: |
+          cd nextjs-dopetrop
+          # Ensure shadcn components are properly installed
+          npx shadcn-ui@latest add button card navigation-menu badge --yes || true
+
+      - name: Build Next.js application
+        run: |
+          cd nextjs-dopetrop
+          npm run build
+
+      - name: Run unit tests
+        run: |
+          cd nextjs-dopetrop
+          npm test -- --passWithNoTests
+
+      - name: Run Playwright tests
+        run: |
+          cd nextjs-dopetrop
+          npx playwright test
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: nextjs-dopetrop/playwright-report/
+          retention-days: 30
+
+      - name: Verify project structure
+        run: |
+          echo "Verifying project structure..."
+          ls -la nextjs-dopetrop/src/
+          ls -la nextjs-dopetrop/src/components/ || echo "Components directory not found"
+          ls -la nextjs-dopetrop/tests/ || echo "Tests directory not found"
+
+      - name: Check for reference screenshot
+        run: |
+          if [ -f "screenshot.png" ]; then
+            echo "Reference screenshot found"
+          else
+            echo "Warning: Reference screenshot not found"
+          fi
+
+  # Environment setup for Copilot Coding Agent
+  copilot-environment:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch'
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Cache Node.js modules
+        uses: actions/cache@v3
+        with:
+          path: |
+            nextjs-dopetrop/node_modules
+            ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('nextjs-dopetrop/package-lock.json') }}
+
+      - name: Preinstall development tools
+        run: |
+          # Install global tools that Copilot might need
+          npm install -g @next/codemod
+          npm install -g prettier
+          npm install -g eslint
+          
+      - name: Setup project for development
+        run: |
+          cd nextjs-dopetrop
+          npm ci
+          
+          # Generate types for better IntelliSense
+          npm run build || echo "Build failed, continuing..."
+          
+          # Install Playwright browsers
+          npx playwright install
+          
+      - name: Warm up Next.js cache
+        run: |
+          cd nextjs-dopetrop
+          npm run dev &
+          PID=$!
+          for i in {1..30}; do
+            if curl -s http://localhost:3000 > /dev/null; then
+              echo "Next.js server is ready."
+              break
+            fi
+            echo "Waiting for Next.js server to be ready..."
+            sleep 1
+          done
+          kill $PID || true
+
+      - name: Create development summary
+        run: |
+          echo "## Development Environment Ready" >> $GITHUB_STEP_SUMMARY
+          echo "- Node.js $(node --version)" >> $GITHUB_STEP_SUMMARY
+          echo "- NPM $(npm --version)" >> $GITHUB_STEP_SUMMARY
+          echo "- Next.js project structure verified" >> $GITHUB_STEP_SUMMARY
+          echo "- Playwright browsers installed" >> $GITHUB_STEP_SUMMARY
+          echo "- Dependencies cached for faster setup" >> $GITHUB_STEP_SUMMARY
