@@ -139,7 +139,7 @@ test("home page matches design", async ({ page }) => {
 
 ### 6. Build & Verification
 
-- Run `npm run build` on /nextjs-dopetrop periodically to ensure pages compile
+- Run `npm run build` inside the `nextjs-dopetrop` directory periodically to ensure pages compile
 - Confirm the rendered pages visually match the screenshot reference and the HTML template
 
 ### 7. Final Checklist
