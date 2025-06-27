@@ -1,103 +1,148 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <>
+      {/* Banner */}
+      <section id="banner">
+        <header>
+          <h2>Howdy. This is Dopetrope.</h2>
+          <p>A responsive template by HTML5 UP</p>
+        </header>
+      </section>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      {/* Intro */}
+      <section id="intro" className="container">
+        <div className="row">
+          <div className="col-4 col-12-medium">
+            <section className="first">
+              <i className="icon solid featured fa-cog"></i>
+              <header>
+                <h2>Ipsum consequat</h2>
+              </header>
+              <p>Nisl amet dolor sit ipsum veroeros sed blandit consequat veroeros et magna tempus.</p>
+            </section>
+          </div>
+          <div className="col-4 col-12-medium">
+            <section className="middle">
+              <i className="icon solid featured alt fa-bolt"></i>
+              <header>
+                <h2>Magna etiam dolor</h2>
+              </header>
+              <p>Nisl amet dolor sit ipsum veroeros sed blandit consequat veroeros et magna tempus.</p>
+            </section>
+          </div>
+          <div className="col-4 col-12-medium">
+            <section className="last">
+              <i className="icon solid featured alt2 fa-star"></i>
+              <header>
+                <h2>Tempus adipiscing</h2>
+              </header>
+              <p>Nisl amet dolor sit ipsum veroeros sed blandit consequat veroeros et magna tempus.</p>
+            </section>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </section>
+
+      {/* Main */}
+      <section id="main">
+        <div className="container">
+          <div className="row">
+            <div className="col-12">
+              {/* Portfolio */}
+              <section>
+                <header className="major">
+                  <h2>My Portfolio</h2>
+                </header>
+                <div className="row">
+                  <div className="col-4 col-6-medium col-12-small">
+                    <section className="box">
+                      <a href="#" className="image featured">
+                        <img src="images/pic02.jpg" alt="" />
+                      </a>
+                      <header>
+                        <h3>Ipsum feugiat et dolor</h3>
+                      </header>
+                      <p>Lorem ipsum dolor sit amet sit veroeros sed amet blandit consequat veroeros lorem blandit adipiscing et feugiat phasellus tempus dolore ipsum lorem.</p>
+                      <footer>
+                        <a href="#" className="button alt">Find out more</a>
+                      </footer>
+                    </section>
+                  </div>
+                  <div className="col-4 col-6-medium col-12-small">
+                    <section className="box">
+                      <a href="#" className="image featured">
+                        <img src="images/pic03.jpg" alt="" />
+                      </a>
+                      <header>
+                        <h3>Magna lorem tempus</h3>
+                      </header>
+                      <p>Lorem ipsum dolor sit amet sit veroeros sed amet blandit consequat veroeros lorem blandit adipiscing et feugiat phasellus tempus dolore ipsum lorem.</p>
+                      <footer>
+                        <a href="#" className="button alt">Find out more</a>
+                      </footer>
+                    </section>
+                  </div>
+                  <div className="col-4 col-6-medium col-12-small">
+                    <section className="box">
+                      <a href="#" className="image featured">
+                        <img src="images/pic04.jpg" alt="" />
+                      </a>
+                      <header>
+                        <h3>Natoque vitae dolor</h3>
+                      </header>
+                      <p>Lorem ipsum dolor sit amet sit veroeros sed amet blandit consequat veroeros lorem blandit adipiscing et feugiat phasellus tempus dolore ipsum lorem.</p>
+                      <footer>
+                        <a href="#" className="button alt">Find out more</a>
+                      </footer>
+                    </section>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-12">
+              {/* Blog */}
+              <section>
+                <header className="major">
+                  <h2>The Blog</h2>
+                </header>
+                <div className="row">
+                  <div className="col-6 col-12-small">
+                    <section className="box">
+                      <a href="#" className="image featured">
+                        <img src="images/pic05.jpg" alt="" />
+                      </a>
+                      <header>
+                        <h3>Magna tempus lorem</h3>
+                        <p>Posted 45 minutes ago</p>
+                      </header>
+                      <p>Lorem ipsum dolor sit amet sit veroeros sed et blandit consequat sed veroeros lorem et blandit adipiscing feugiat phasellus tempus hendrerit, tortor vitae mattis tempor, sapien sem feugiat sapien, id suscipit magna felis nec elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Mauris in erat justo.</p>
+                      <footer>
+                        <a href="#" className="button alt">Continue reading</a>
+                      </footer>
+                    </section>
+                  </div>
+                  <div className="col-6 col-12-small">
+                    <section className="box">
+                      <a href="#" className="image featured">
+                        <img src="images/pic06.jpg" alt="" />
+                      </a>
+                      <header>
+                        <h3>Aptent veroeros aliquam</h3>
+                        <p>Posted 45 minutes ago</p>
+                      </header>
+                      <p>Lorem ipsum dolor sit amet sit veroeros sed et blandit consequat sed veroeros lorem et blandit adipiscing feugiat phasellus tempus hendrerit, tortor vitae mattis tempor, sapien sem feugiat sapien, id suscipit magna felis nec elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Mauris in erat justo.</p>
+                      <footer>
+                        <a href="#" className="button alt">Continue reading</a>
+                      </footer>
+                    </section>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }
