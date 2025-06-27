@@ -1,18 +1,44 @@
 import { test, expect } from '@playwright/test';
 
-test('has title', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
+test('home page has correct structure', async ({ page }) => {
+  await page.goto('/');
 
-  // Expect a title "to contain" a substring.
-  await expect(page).toHaveTitle(/Playwright/);
+  // Check that header exists
+  await expect(page.getByRole('heading', { name: /dopetrope/i })).toBeVisible();
+  
+  // Check that banner exists
+  await expect(page.getByText('Howdy. This is Dopetrope.')).toBeVisible();
+  
+  // Check that intro section exists
+  await expect(page.getByText('Ipsum consequat')).toBeVisible();
+  await expect(page.getByText('Magna etiam dolor')).toBeVisible();
+  await expect(page.getByText('Tempus adipiscing')).toBeVisible();
+  
+  // Check that portfolio section exists
+  await expect(page.getByText('My Portfolio')).toBeVisible();
+  
+  // Check that blog section exists
+  await expect(page.getByText('The Blog')).toBeVisible();
 });
 
-test('get started link', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
+test('navigation links work', async ({ page }) => {
+  await page.goto('/');
 
-  // Click the get started link.
-  await page.getByRole('link', { name: 'Get started' }).click();
+  // Test left sidebar link
+  await page.click('text=Left Sidebar');
+  await expect(page.getByRole('heading', { name: /left sidebar/i })).toBeVisible();
 
-  // Expects page to have a heading with the name of Installation.
-  await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
+  // Go back to home
+  await page.click('text=Home');
+  
+  // Test right sidebar link
+  await page.click('text=Right Sidebar');
+  await expect(page.getByRole('heading', { name: /right sidebar/i })).toBeVisible();
+
+  // Go back to home
+  await page.click('text=Home');
+  
+  // Test no sidebar link
+  await page.click('text=No Sidebar');
+  await expect(page.getByRole('heading', { name: /no sidebar/i })).toBeVisible();
 });
