@@ -115,7 +115,14 @@ jobs:
           cd nextjs-dopetrop
           npm run dev &
           PID=$!
-          sleep 10
+          for i in {1..30}; do
+            if curl -s http://localhost:3000 > /dev/null; then
+              echo "Next.js server is ready."
+              break
+            fi
+            echo "Waiting for Next.js server to be ready..."
+            sleep 1
+          done
           kill $PID || true
 
       - name: Create development summary
